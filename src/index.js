@@ -8,6 +8,7 @@ import { Main } from './components/Pages/Main/Main'
 import { ProductsList } from './components/Pages/ProductsList/ProductsList'
 import { SigninPage } from './components/Pages/SigninPage/SigninPage'
 import { SignupPage } from './components/Pages/SignupPage/SignupPage'
+import { QueryContextProvider } from './context/QueryContextProvider'
 
 const router = createBrowserRouter([
   {
@@ -40,8 +41,9 @@ const root = ReactDOM.createRoot(document.getElementById('root'))
 root.render(
   <React.StrictMode>
     <QueryClientProvider client={queryClient}>
-      <RouterProvider router={router} />
+      <QueryContextProvider>
+        <RouterProvider router={router} />
+      </QueryContextProvider>
     </QueryClientProvider>
-
   </React.StrictMode>,
 )

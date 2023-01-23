@@ -13,7 +13,7 @@ const initialValuesSignUp = {
 }
 
 export function SignupPage() {
-  const navigate = useNavigate()
+  const navigateSingUp = useNavigate()
 
   const { mutateAsync, isLoading } = useMutation({
     mutationFn: (data) => fetch('https://api.react-learning.ru/signup', {
@@ -27,12 +27,12 @@ export function SignupPage() {
 
   const submitHandler = async (values) => {
     await mutateAsync(values)
-    navigate('/signin')
+    navigateSingUp('/signin')
   }
 
   return (
     <div className={singUpPageStyle.container}>
-      <h1>Форма регистрации</h1>
+      <h3>Форма регистрации</h3>
       <Formik
         initialValues={initialValuesSignUp}
         validationSchema={singUpFormValidationSchema}
@@ -48,7 +48,7 @@ export function SignupPage() {
           <Field name="password" placeholder="Пароль" type="text" />
           <ErrorMessage className="error" component="p" name="password" />
 
-          <button disabled={isLoading} type="submit">Submit</button>
+          <button disabled={isLoading} type="submit">Зарегистрироваться</button>
         </Form>
       </Formik>
     </div>
