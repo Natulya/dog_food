@@ -2,6 +2,7 @@ import { useQuery } from '@tanstack/react-query'
 import { useContext, useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { QueryContext } from '../../../context/QueryContextProvider'
+import { Loader } from '../../Loader/Loader'
 import productsListStyle from './productsList.module.css'
 
 export function ProductsList() {
@@ -23,7 +24,19 @@ export function ProductsList() {
         authorization: `Bearer ${token}`,
       },
     }).then((res) => res.json()),
+    // .then(() => {
+    //   throw new Error('Ошибка')
+    // }),
   })
+
+  if (isLoading) return <Loader />
+  if (isError) {
+    return (
+      <div className={productsListStyle.errorMessage}>
+        {error.message}
+      </div>
+    )
+  }
 
   console.log({
     data, isLoading, isError, error, refetch,
