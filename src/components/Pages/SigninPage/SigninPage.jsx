@@ -13,24 +13,29 @@ const initialValuesSignIn = {
   password: '',
 }
 
-const { setNewToken } = useContext(QueryContext)
-
 export function SigninPage() {
+  const { token, setNewToken } = useContext(QueryContext)
   const navigateSingIn = useNavigate()
 
+  console.log(token)
   const { mutateAsync, isLoading } = useMutation({
     mutationFn: (data) => fetch('https://api.react-learning.ru/signin', {
       method: 'POST',
       headers: {
-        'Content-Typ': 'application/json',
+        'Content-Type': 'application/json',
       },
       body: JSON.stringify(data),
-    }).then((res) => res.json()).then((user) => setNewToken(user.token)),
+    }).then((res) => res.json())
+      .then((user) => {
+        setNewToken(user.token)
+        navigateSingIn('/products')
+      })
+      .catch((error) => console.log(error)),
+
   })
 
   const submitHandler = async (values) => {
     await mutateAsync(values)
-    setTimeout(() => { navigateSingIn('/products') })
   }
 
   return (

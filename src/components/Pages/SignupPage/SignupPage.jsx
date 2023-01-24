@@ -19,11 +19,11 @@ export function SignupPage() {
     mutationFn: (data) => fetch('https://api.react-learning.ru/signup', {
       method: 'POST',
       headers: {
-        'Content-Typ': 'application/json',
+        'Content-Type': 'application/json',
       },
       body: JSON.stringify(data),
     }),
-  })
+  }) // .catch((error) => console.log(error))
 
   const submitHandler = async (values) => {
     await mutateAsync(values)

@@ -2,6 +2,7 @@ import { Link } from 'react-router-dom'
 import headerStyle from './header.module.css'
 
 export function Header() {
+  console.log('Header Render')
   return (
     <div className="d-flex justify-content-between">
       <Link to="/">
