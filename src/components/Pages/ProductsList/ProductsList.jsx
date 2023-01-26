@@ -3,6 +3,7 @@ import { useContext, useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { QueryContext } from '../../../context/QueryContextProvider'
 import { Loader } from '../../Loader/Loader'
+import { ProductCard } from '../ProductCard/ProductCard'
 import productsListStyle from './productsList.module.css'
 
 export function ProductsList() {
@@ -38,13 +39,27 @@ export function ProductsList() {
     )
   }
 
+  const { products } = data
+  if (!products.length) {
+    return <p>Нет ни одного товара</p>
+  }
+
   console.log({
-    data, isLoading, isError, error, refetch,
+    refetch,
   })
 
   return (
     <div className={productsListStyle.container}>
-      <h1>Здесь карточки товаров</h1>
+      {products.map((item) => (
+        <ProductCard
+          // eslint-disable-next-line dot-notation
+          key={item['_id']}
+          pictures={item.pictures}
+          name={item.name}
+          price={item.price}
+          wight={item.wight}
+        />
+      ))}
     </div>
   )
 }

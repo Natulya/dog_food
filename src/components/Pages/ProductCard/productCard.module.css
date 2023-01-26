@@ -1,0 +1,46 @@
+.cardWrapper {
+    background: white;
+    margin: 16px 8px;
+    border: 1px solid rgba(225, 225, 225, 0.835);
+    border-radius: 12px;
+}
+
+.card {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items:flex-start;
+    margin: 4px 16px;
+    width: 210px;
+   
+}
+.icon {
+    font-size: 24px;
+    color: rgba(199, 0, 60, 0.487);
+    margin: 2px;
+    position: absolute;
+	left: 185px;
+	top: 4px;
+   
+
+}
+
+.pic {
+margin: 16px 0;
+border-radius: 15px;
+width: 210px;
+} 
+
+.btn {
+  font-family: 'Raleway', sans—serif;
+  color: #fff;
+  height: 40px;
+  padding: 0 16px;
+  margin: 8px 0px;
+  background-color: #23a030;
+  border: none;
+  border-radius: 12px;
+  cursor: pointer;
+  box-shadow: 0 6px 26px rgb(52 213 68 / 22%);
+  
+}
