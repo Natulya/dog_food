@@ -2,61 +2,84 @@ import { useMutation } from '@tanstack/react-query'
 import {
   ErrorMessage, Field, Form, Formik,
 } from 'formik'
-import { useContext } from 'react'
 import { useNavigate } from 'react-router-dom'
-import { QueryContext } from '../../../context/QueryContextProvider'
-import singInPageStyle from './singInPage.module.css'
-import { singInFormValidationSchema } from './validatorSignIn'
+import { dogFoodApi } from '../../../Api/DogFoodApi'
+import { useQueryContext } from '../../../context/QueryContextProvider'
+import { withQuery } from '../../HOCs/withQuery'
+import signInPageStyle from './signInPage.module.css'
+import { signInFormValidationSchema } from './validatorSignIn'
 
-const initialValuesSignIn = {
-  email: '',
-  password: '',
-}
-
-export function SigninPage() {
-  const { token, setNewToken } = useContext(QueryContext)
-  const navigateSingIn = useNavigate()
-
-  console.log(token)
-  const { mutateAsync, isLoading } = useMutation({
-    mutationFn: (data) => fetch('https://api.react-learning.ru/signin', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify(data),
-    }).then((res) => res.json())
-      .then((user) => {
-        setNewToken(user.token)
-        navigateSingIn('/products')
-      })
-      .catch((error) => console.log(error)),
-
-  })
-
+function SignInInner({ mutateAsync, isLoading }) {
+  const initialValuesSignIn = {
+    email: '',
+    password: '',
+  }
+  const navigateSignIn = useNavigate()
   const submitHandler = async (values) => {
     await mutateAsync(values)
+    setTimeout(() => navigateSignIn('/products'))
   }
 
   return (
-    <div className={singInPageStyle.container}>
+
+    <div className={signInPageStyle.container}>
       <p>Пожалуйста авторизуйтесь</p>
       <Formik
         initialValues={initialValuesSignIn}
-        validationSchema={singInFormValidationSchema}
+        validationSchema={signInFormValidationSchema}
         onSubmit={submitHandler}
       >
-        <Form className="d-flex flex-column">
-          <Field name="email" placeholder="Email" type="email" />
-          <ErrorMessage className="error" component="p" name="email" />
+        <Form className={signInPageStyle.form}>
+          <Field
+            name="email"
+            placeholder="Email"
+            type="email"
+            className={signInPageStyle.field}
+          />
+          <ErrorMessage className={signInPageStyle.error} component="p" name="email" />
 
-          <Field name="password" placeholder="Пароль" type="text" />
-          <ErrorMessage className="error" component="p" name="password" />
+          <Field
+            name="password"
+            placeholder="Пароль"
+            type="password"
+            className={signInPageStyle.field}
+          />
+          <ErrorMessage className={signInPageStyle.error} component="p" name="password" />
 
-          <button disabled={isLoading} type="submit">Войти на сайт</button>
+          <button
+            disabled={isLoading}
+            type="submit"
+            className={signInPageStyle.btn}
+          >
+            Войти на сайт
+
+          </button>
         </Form>
       </Formik>
 
     </div>
+  )
+}
+
+const SignInWithQuery = withQuery(SignInInner)
+
+export function SigninPage() {
+  const { setToken } = useQueryContext()
+  const {
+    mutateAsync, isLoading, isError, error,
+  } = useMutation({
+    mutationFn: (values) => dogFoodApi.signIn(values)
+      .then((user) => {
+        setToken(user.token)
+      }),
+  })
+
+  return (
+    <SignInWithQuery
+      mutateAsync={mutateAsync}
+      isLoading={isLoading}
+      isError={isError}
+      error={error}
+    />
   )
 }

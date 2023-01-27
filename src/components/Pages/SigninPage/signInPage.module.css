@@ -1,0 +1,41 @@
+.container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    height: 600px;
+}
+
+.form {
+    display: flex;
+    flex-direction: column;
+    width: 40%;
+
+}
+
+.field {
+margin: 2px 0;
+padding: 2px;
+text-align: center;
+border-radius: 8px;
+border: 1px solid rgb(179, 178, 178);
+line-height: 30px;
+}
+
+.error {
+    color: red;
+    margin: 0;
+    font-size: medium;
+}
+
+.btn {
+    font-family: 'Raleway', sans—serif;
+    color: #fff;
+    height: 38px;
+    padding: 0 16px;
+    margin: 3px 0;
+    background-color: #8c8c8c;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+    font-size: 20px;
+}

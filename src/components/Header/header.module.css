@@ -3,7 +3,7 @@ border-color: rgb(174, 174, 174);
 border-radius: 8px;
 border: 1px solid rgb(179, 178, 178);
 height: 38px;
-margin: 2px 3px 0 0;
+margin: 0 3px;
 
 }
 .btn {
@@ -20,8 +20,17 @@ margin: 2px 3px 0 0;
 
 .icon {
 font-size: 58px;
-color:rgb(1, 159, 72)
+color:rgb(179, 3, 88);
+margin: 0 4px;
 
+}
+
+.store {
+    color: rgb(179, 3, 88);
+    margin: 0 4px;
+}
+.catalog {
+    color: rgb(179, 3, 88);
 }
 
 .btn:hover {
@@ -30,10 +39,6 @@ color:rgb(1, 159, 72)
   
 .searchBar:focus {
     border: 2px solid rgb(0, 166, 255);
-}
-
-h1, h2 {
-    color:black
 }
 
 a {

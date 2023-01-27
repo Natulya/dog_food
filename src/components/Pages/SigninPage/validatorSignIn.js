@@ -1,12 +1,12 @@
 import * as Yup from 'yup'
 
-export const singInFormValidationSchema = Yup.object({
+export const signInFormValidationSchema = Yup.object({
   email: Yup.string()
     .email('Invalid email address')
-    .required('Required'),
+    .required('Поле Email обязательное'),
 
   password: Yup.string()
-    .min(6, 'Must be 6 characters or more')
-    .required('Required'),
+    .min(4, 'Must be 4 characters or more')
+    .required('Поле Пароль обязательное'),
 
 })

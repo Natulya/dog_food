@@ -1,14 +1,14 @@
 import * as Yup from 'yup'
 
-export const singUpFormValidationSchema = Yup.object({
+export const signUpFormValidationSchema = Yup.object({
   email: Yup.string()
     .email('Invalid email address')
-    .required('Required'),
+    .required('Поле Email обязательное'),
   group: Yup.string()
     .max(15, 'Must be 15 characters or less')
-    .required('Required'),
+    .required('Поле Код группы обязательное'),
   password: Yup.string()
-    .min(6, 'Must be 6 characters or more')
-    .required('Required'),
+    .min(4, 'Must be 4 characters or more')
+    .required('Поле Пароль обязательное'),
 
 })

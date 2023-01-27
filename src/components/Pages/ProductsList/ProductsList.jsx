@@ -40,7 +40,7 @@ export function ProductsList() {
   }
 
   const { products } = data
-  if (!products.length) {
+  if (products === undefined) {
     return <p>Нет ни одного товара</p>
   }
 
