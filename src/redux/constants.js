@@ -1,0 +1,1 @@
+export const DOG_FOOD_TOKEN_KEY = 'DOG_FOOD_TOKEN_KEY'

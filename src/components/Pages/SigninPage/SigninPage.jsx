@@ -2,9 +2,10 @@ import { useMutation } from '@tanstack/react-query'
 import {
   ErrorMessage, Field, Form, Formik,
 } from 'formik'
+import { useDispatch } from 'react-redux'
 import { useNavigate } from 'react-router-dom'
 import { dogFoodApi } from '../../../Api/DogFoodApi'
-import { useQueryContext } from '../../../context/QueryContextProvider'
+import { setUserToken } from '../../../redux/slices/userSlice'
 import { withQuery } from '../../HOCs/withQuery'
 import signInPageStyle from './signInPage.module.css'
 import { signInFormValidationSchema } from './validatorSignIn'
@@ -64,13 +65,15 @@ function SignInInner({ mutateAsync, isLoading }) {
 const SignInWithQuery = withQuery(SignInInner)
 
 export function SigninPage() {
-  const { setToken } = useQueryContext()
+  const dispatch = useDispatch()
+
   const {
     mutateAsync, isLoading, isError, error,
   } = useMutation({
     mutationFn: (values) => dogFoodApi.signIn(values)
       .then((user) => {
-        setToken(user.token)
+        dispatch(setUserToken(user.token))
+        dogFoodApi.setToken(user.token)
       }),
   })
 

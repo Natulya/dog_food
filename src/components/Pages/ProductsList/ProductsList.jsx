@@ -1,13 +1,15 @@
 import { useQuery } from '@tanstack/react-query'
-import { useContext, useEffect } from 'react'
+import { useEffect } from 'react'
+import { useSelector } from 'react-redux'
 import { useNavigate } from 'react-router-dom'
-import { QueryContext } from '../../../context/QueryContextProvider'
+
+import { getUserSelector } from '../../../redux/slices/userSlice'
 import { Loader } from '../../Loader/Loader'
 import { ProductCard } from '../ProductCard/ProductCard'
 import productsListStyle from './productsList.module.css'
 
 export function ProductsList() {
-  const { token } = useContext(QueryContext)
+  const token = useSelector(getUserSelector)
   const navigateProducts = useNavigate()
 
   useEffect(() => {

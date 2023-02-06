@@ -1,16 +1,20 @@
+import { useSelector } from 'react-redux'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faShieldDog } from '@fortawesome/free-solid-svg-icons'
 import { Link } from 'react-router-dom'
-import { useContext } from 'react'
 import headerStyle from './header.module.css'
-import { QueryContext } from '../../context/QueryContextProvider'
+import { Search } from '../Search/Search'
+
+import { getUserSelector } from '../../redux/slices/userSlice'
+import { dogFoodApi } from '../../Api/DogFoodApi'
 
 export function Header() {
-  const { token, setToken } = useContext(QueryContext)
+  const token = useSelector(getUserSelector)
+
   console.log('Header Render')
 
   const logoutHandler = () => {
-    setToken('')
+    dogFoodApi.setToken('')
   }
 
   return (
@@ -33,10 +37,9 @@ export function Header() {
       <Link to="/products">
         <h3 className={headerStyle.catalog}>Каталог</h3>
       </Link>
-      <div>
-        <input type="search" placeholder="Введите название" className={headerStyle.searchBar} />
-        <button type="button" className={headerStyle.btn}>Поиск</button>
-      </div>
+
+      <Search />
+
       <div>
         <Link to="/signup" className="btn btn-primary mx-2">
           Регистрация
