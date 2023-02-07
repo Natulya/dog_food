@@ -1,24 +1,4 @@
-.searchBar {
-border-color: rgb(174, 174, 174);
-border-radius: 8px;
-border: 1px solid rgb(179, 178, 178);
-height: 38px;
-margin: 0 3px;
-
-}
-.btn {
-    font-family: 'Raleway', sans—serif;
-    color: #fff;
-    height: 38px;
-    padding: 0 16px;
-    margin: 0 3px;
-    background-color: #8c8c8c;
-    border: none;
-    border-radius: 12px;
-    cursor: pointer;
-}
-
-.icon {
+.iconLogo {
 font-size: 58px;
 color:rgb(179, 3, 88);
 margin: 0 4px;
@@ -33,14 +13,14 @@ margin: 0 4px;
     color: rgb(179, 3, 88);
 }
 
-.btn:hover {
-    background-color: rgb(169, 167, 167);
-}
   
-.searchBar:focus {
-    border: 2px solid rgb(0, 166, 255);
-}
-
 a {
     text-decoration: none;
 }
+
+.iconCart {
+    font-size: 32px;
+    color:rgb(66, 141, 246);
+    margin: 0 6px;
+    
+    }

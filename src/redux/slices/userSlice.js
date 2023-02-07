@@ -7,7 +7,10 @@ const userSlice = createSlice({
   reducers: {
     setUserToken(state, action) {
       console.log(state, action)
+      // eslint-disable-next-line no-param-reassign
+      state.token = action.payload
     },
+
   },
 })
 

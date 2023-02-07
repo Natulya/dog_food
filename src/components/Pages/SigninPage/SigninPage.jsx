@@ -3,9 +3,11 @@ import {
   ErrorMessage, Field, Form, Formik,
 } from 'formik'
 import { useDispatch } from 'react-redux'
+
 import { useNavigate } from 'react-router-dom'
 import { dogFoodApi } from '../../../Api/DogFoodApi'
 import { setUserToken } from '../../../redux/slices/userSlice'
+
 import { withQuery } from '../../HOCs/withQuery'
 import signInPageStyle from './signInPage.module.css'
 import { signInFormValidationSchema } from './validatorSignIn'
@@ -70,10 +72,10 @@ export function SigninPage() {
   const {
     mutateAsync, isLoading, isError, error,
   } = useMutation({
+
     mutationFn: (values) => dogFoodApi.signIn(values)
       .then((user) => {
         dispatch(setUserToken(user.token))
-        dogFoodApi.setToken(user.token)
       }),
   })
 

@@ -10,6 +10,7 @@ import { ProductsList } from './components/Pages/ProductsList/ProductsList'
 import { SigninPage } from './components/Pages/SigninPage/SigninPage'
 import { SignupPage } from './components/Pages/SignupPage/SignupPage'
 import { store } from './redux/store'
+import { Cart } from './components/Pages/Cart/Cart'
 
 const router = createBrowserRouter([
   {
@@ -31,6 +32,10 @@ const router = createBrowserRouter([
       {
         path: '/signup',
         element: <SignupPage />,
+      },
+      {
+        path: '/cart',
+        element: <Cart />,
       },
     ],
   },

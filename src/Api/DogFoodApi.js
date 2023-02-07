@@ -1,20 +1,25 @@
+import { DOG_FOOD_TOKEN_KEY } from '../redux/constants'
+
 class DogFoodApi {
   constructor({ baseUrl }) {
     this.baseUrl = baseUrl
-    this.token = ''
   }
 
-  getAuthorizationHeader() {
-    return `Bearer ${this.token}`
+  static getToken() {
+    return localStorage.getItem(DOG_FOOD_TOKEN_KEY)
   }
 
-  setToken(token) {
-    this.token = token
+  static getAuthorizationHeader() {
+    const token = this.getToken()
+    if (!token) {
+      throw new Error('Отсутствует токен')
+    }
+    return `Bearer ${token}`
   }
-
-  checkToken() {
-    if (!this.token) throw new Error('Отсутствует токен')
-  }
+  // setToken(token) {
+  //   this.token = token
+  //   localStorage.setItem(DOG_FOOD_TOKEN_KEY, '')
+  // }
 
   async signIn(values) {
     const res = await fetch(`${this.baseUrl}/signin`, {
@@ -34,7 +39,6 @@ class DogFoodApi {
     if (res.status >= 300) {
       throw new Error(`Ошибка, код ${res.status} `)
     }
-
     return res.json()
   }
 
@@ -57,6 +61,16 @@ class DogFoodApi {
     if (res.status >= 300) {
       throw new Error(`Ошибка, код ${res.status}`)
     }
+
+    return res.json()
+  }
+
+  async getProductsList() {
+    const res = await fetch(`${this.baseUrl}/products`, {
+      headers: {
+        authorization: DogFoodApi.getAuthorizationHeader(),
+      },
+    })
 
     return res.json()
   }

@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import { useDispatch } from 'react-redux'
 import { changeSearchFilter } from '../../redux/slices/filterSlice'
+import searchStyle from './search.module.css'
 
 export function Search() {
   const [search, setSearch] = useState('')
@@ -17,6 +18,7 @@ export function Search() {
 
   return (
     <input
+      className={searchStyle.searchBar}
       placeholder="Search..."
       value={search}
       onChange={changeSearchHandler}

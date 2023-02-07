@@ -1,9 +1,11 @@
+import { DOG_FOOD_TOKEN_KEY } from './constants'
+
 export const initState = {
   user: {
     group: '',
     name: '',
     email: '',
-    token: '',
+    token: localStorage.getItem(DOG_FOOD_TOKEN_KEY) || '',
   },
   cart: {
     product_id: {
