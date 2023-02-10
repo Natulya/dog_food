@@ -1,0 +1,21 @@
+.card {
+    display: flex;
+    justify-content: space-between;
+    background: white;
+    margin: 16px 8px;
+    border: 1px solid rgba(225, 225, 225, 0.835);
+    border-radius: 12px;
+    
+}
+
+img {
+    width: 150px;
+    margin: 4px;
+}
+
+.counter {
+    display: flex;
+}
+.changeAmount {
+    width: 15px;
+}

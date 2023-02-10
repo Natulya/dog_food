@@ -16,10 +16,6 @@ class DogFoodApi {
     }
     return `Bearer ${token}`
   }
-  // setToken(token) {
-  //   this.token = token
-  //   localStorage.setItem(DOG_FOOD_TOKEN_KEY, '')
-  // }
 
   async signIn(values) {
     const res = await fetch(`${this.baseUrl}/signin`, {
@@ -73,6 +69,14 @@ class DogFoodApi {
     })
 
     return res.json()
+  }
+
+  async getProductsByIds(ids) {
+    return Promise.all(ids.map((id) => fetch(`${this.baseUrl}/products/${id}`, {
+      headers: {
+        authorization: DogFoodApi.getAuthorizationHeader(),
+      },
+    }).then((res) => res.json())))
   }
 }
 

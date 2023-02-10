@@ -1,13 +1,35 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faHeart } from '@fortawesome/free-regular-svg-icons'
+import { useDispatch, useSelector } from 'react-redux'
 import productCardStyle from './productCard.module.css'
+import {
+  addToCart,
+  deleteFromCart,
+  getProducstInCartSelector,
+} from '../../../redux/slices/cartSlice'
 
 export function ProductCard({
-  pictures, name, price, wight,
+  pictures, name, price, wight, id,
 }) {
 //   const {
 //     pictures, name, price, description,
 //   } = products
+
+  const productsInCart = useSelector(getProducstInCartSelector)
+
+  const dispatch = useDispatch()
+
+  const addToCartHandler = () => {
+    dispatch(addToCart(id))
+  }
+
+  const deleteFromCartHandler = () => {
+    dispatch(deleteFromCart(id))
+  }
+
+  const isInCart = (productId) => {
+    productsInCart.find((product) => product.id === productId)
+  }
 
   return (
     <div className={productCardStyle.cardWrapper}>
@@ -29,7 +51,11 @@ export function ProductCard({
             </b>
           </div>
         </div>
-        <button type="button" className={productCardStyle.btn}>
+        <button
+          type="button"
+          className={productCardStyle.btn}
+          onClick={isInCart(id) ? deleteFromCartHandler : addToCartHandler}
+        >
           В корзину
         </button>
       </div>

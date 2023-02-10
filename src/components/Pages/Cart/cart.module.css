@@ -1,0 +1,14 @@
+.container {
+    width: 100%;
+    display: flex;
+
+}
+
+.leftPart {
+    width: 70%;
+
+}
+
+.rightPart {
+    width: 30%;
+}
