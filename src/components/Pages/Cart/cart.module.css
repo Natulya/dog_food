@@ -1,14 +1,38 @@
 .container {
-    width: 100%;
     display: flex;
+    flex-direction: column;
+    height: 600px;
 
 }
 
+.cartTab {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    margin: 20px 0 0 0;
+}
+
 .leftPart {
-    width: 70%;
+    width: 68%;
 
 }
 
 .rightPart {
     width: 30%;
+}
+
+.upperPanel {
+    display: flex;
+    align-items: center;
+}
+
+.upperPanel button {
+    margin: 0 30px;
+    font-family: 'Raleway', sans—serif;
+    color: #6a6666;
+    font-size: 18px;
+    height: 40px;
+    background-color: #ffffff;
+    border: none;
+    cursor: pointer;    
 }

@@ -29,10 +29,33 @@ const cartSlice = createSlice({
       return []
     },
 
+    selectInCart(state, action) {
+      const productInCart = state.find((product) => product.id === action.payload)
+      if (productInCart) {
+        productInCart.isChecked = !productInCart.isChecked
+      }
+    },
+
+    selectAllProducts(state) {
+      return state.map((product) => ({
+        ...product,
+        isChecked: true,
+      }))
+    },
+
+    cancelSelectAllProducts(state) {
+      return state.map((product) => ({
+        ...product,
+        isChecked: false,
+      }))
+    },
+
   },
 })
 
-export const { addToCart, deleteFromCart, clearCart } = cartSlice.actions
+export const {
+  addToCart, deleteFromCart, clearCart, selectInCart, selectAllProducts, cancelSelectAllProducts,
+} = cartSlice.actions
 
 export const getProducstInCartSelector = (state) => state.cart
 

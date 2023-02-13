@@ -16,13 +16,16 @@ export function Cart() {
   } = useQuery({
     queryKey: ['cart'],
     queryFn: () => dogFoodApi.getProductsByIds(cart.map((product) => product.id)),
-    enabled: (token !== undefined) && (token !== ''),
+    enabled: !!(token),
   })
 
   console.log(productsInCart)
+
   const clearCartHandler = () => {
     dispatch(clearCart())
   }
+
+  // const getProductStateById = (idState) => cart.find((prod) => prod.id === idState)
 
   if (isLoading) return <Loader />
   if (isError) {
@@ -35,33 +38,54 @@ export function Cart() {
 
   return (
     <div className={cartStyle.container}>
+      <div>
+        Корзина
+      </div>
 
-      <div className={cartStyle.leftPart}>
-        <p> Тут перечень продуктов</p>
-        <button type="button" onClick={clearCartHandler}>
-          Очистить
-        </button>
-        <ul>
-          {
-            productsInCart.map((item) => (
+      <div className={cartStyle.cartTab}>
+        <div className={cartStyle.leftPart}>
+          <div className={cartStyle.upperPanel}>
+            <span>
+              <label htmlFor="selectAll">
+                <input id="selectAll" type="checkbox" defaultChecked />
+                {' '}
+                Выбрать все
+              </label>
+            </span>
+            <button type="button" onClick={clearCartHandler}>
+              Очистить корзину
+            </button>
+
+          </div>
+
+          <ul>
+            {
+            productsInCart.map((prod) => (
               <CartItem
               // eslint-disable-next-line dot-notation
-                key={item['_id']}
+                key={prod['_id']}
               // eslint-disable-next-line dot-notation
-                id={item['_id']}
-                pictures={item.pictures}
-                name={item.name}
-                price={item.price}
-                wight={item.wight}
+                id={prod['_id']}
+                pictures={prod.pictures}
+                name={prod.name}
+                price={prod.price}
+                wight={prod.wight}
+                stock={prod.stock}
+                discount={prod.discount}
+                // eslint-disable-next-line dot-notation
+                // isChecked={getProductStateById(prod['_id']).isChecked}
+                // eslint-disable-next-line dot-notation
+                // count={getProductStateById(prod['_id']).count}
               />
 
             ))
           }
-        </ul>
-      </div>
+          </ul>
+        </div>
 
-      <div className={cartStyle.rightPart}>
-        <p> Тут окончательный расчет</p>
+        <div className={cartStyle.rightPart}>
+          <p> Тут окончательный расчет</p>
+        </div>
       </div>
 
     </div>

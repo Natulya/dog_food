@@ -57,6 +57,7 @@ export function ProductsList() {
           name={item.name}
           price={item.price}
           wight={item.wight}
+
         />
       ))}
     </div>

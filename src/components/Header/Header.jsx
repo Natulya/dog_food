@@ -8,9 +8,11 @@ import { Search } from '../Search/Search'
 import { getUserSelector, setUserToken } from '../../redux/slices/userSlice'
 // import { dogFoodApi } from '../../Api/DogFoodApi'
 import { DOG_FOOD_TOKEN_KEY } from '../../redux/constants'
+import { getProducstInCartSelector } from '../../redux/slices/cartSlice'
 
 export function Header() {
   const { token } = useSelector(getUserSelector)
+  const productsInCart = useSelector(getProducstInCartSelector)
   const dispatch = useDispatch()
 
   console.log('Header Render')
@@ -24,7 +26,7 @@ export function Header() {
   }
 
   return (
-    <div className="d-flex justify-content-between">
+    <div className={headerStyle.wrapper}>
       <Link to="/">
         <div className="d-flex">
           <FontAwesomeIcon icon={faShieldDog} className={headerStyle.iconLogo} />
@@ -46,11 +48,15 @@ export function Header() {
 
       <Search />
 
-      <div>
+      <div className={headerStyle.leftSide}>
         {token
           ? (
             <Link to="/cart">
-              <FontAwesomeIcon icon={faCartShopping} className={headerStyle.iconCart} />
+              <div className={headerStyle.cartInfo}>
+                <p>{productsInCart.length}</p>
+                <FontAwesomeIcon icon={faCartShopping} className={headerStyle.iconCart} />
+                <p>Корзина</p>
+              </div>
             </Link>
           )
           : (
@@ -60,13 +66,13 @@ export function Header() {
           )}
 
         {token ? (
-          <Link onClick={logoutHandler} to="/signin" className="btn btn-primary">
-            Выйти
+          <Link onClick={logoutHandler} to="/signin">
+            <button type="button" className={headerStyle.btn}>Выйти</button>
           </Link>
         ) : (
 
-          <Link to="/signin" className="btn btn-primary">
-            Войти
+          <Link to="/signin">
+            <button type="button" className={headerStyle.btn}>Войти</button>
           </Link>
         )}
       </div>

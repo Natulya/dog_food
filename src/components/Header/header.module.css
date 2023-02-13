@@ -1,6 +1,13 @@
+.wrapper {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+   
+}
+
 .iconLogo {
 font-size: 58px;
-color:rgb(179, 3, 88);
+color:#b30358;
 margin: 0 4px;
 
 }
@@ -18,9 +25,39 @@ a {
     text-decoration: none;
 }
 
+.leftSide {
+    display: flex;
+    align-items:center
+   
+}
+
 .iconCart {
     font-size: 32px;
-    color:rgb(66, 141, 246);
+    color:rgb(179, 3, 88);
     margin: 0 6px;
     
     }
+
+.cartInfo {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-right: 16px;
+    
+}
+.btn {
+  font-family: 'Raleway', sans-serif;
+  font-size: 13px;
+  color: #fff;
+  background-color: rgb(179, 3, 88);
+  border: none;
+  border-radius: 15px;
+  padding: 12px;
+  margin: 0 4px;
+  
+}
+.cartInfo p {
+    color: rgb(179, 3, 88);
+    font-size: 14px;
+    margin: 0;
+}
