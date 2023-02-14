@@ -17,9 +17,19 @@
 
 }
 
+.leftPart h5 {
+    width: 50%;
+}
+
 .rightPart {
     width: 30%;
 }
+
+.rightPart h5 {
+    text-align: center;
+    margin-bottom: 30px;
+}
+
 
 .upperPanel {
     display: flex;
@@ -36,12 +46,19 @@
     cursor: pointer;
 }
 
+
 .total {
     display: flex;
     justify-content: space-between;
 }
 
+.orderContainer {
+    display: flex;
+    justify-content: center;
+}
+
 .btn {
+    width: 100%;
     font-family: 'Raleway', sans—serif;
     color: #fff;
     height: 40px;

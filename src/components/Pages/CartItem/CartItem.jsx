@@ -5,7 +5,7 @@ import minus from '../../../img/minus.svg'
 import plus from '../../../img/plus.svg'
 
 export function CartItem({
-  name, pictures, price, id, stock, discount, count,
+  name, pictures, price, id, stock, discount, count, isChecked,
 }) {
   const dispatch = useDispatch()
   // const  = useSelector(getProducstInCartSelector)
@@ -24,7 +24,7 @@ export function CartItem({
         <input
           type="checkbox"
           onChange={selectProductHandler}
-          defaultChecked
+          checked={isChecked}
         />
       </div>
       <img src={pictures} alt={name} className={cartItemStyle.img} />
@@ -46,7 +46,10 @@ export function CartItem({
           <img src={minus} alt="Уменьшить" />
         </button>
         <p>{count}</p>
-        <button type="button" className={cartItemStyle.btnChangeAmount}>
+        <button
+          type="button"
+          className={cartItemStyle.btnChangeAmount}
+        >
           <img src={plus} alt="Добавить" />
         </button>
       </div>

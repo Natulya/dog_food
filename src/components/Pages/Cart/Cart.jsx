@@ -1,7 +1,9 @@
 import { useQuery } from '@tanstack/react-query'
 import { useDispatch, useSelector } from 'react-redux'
 import { dogFoodApi } from '../../../Api/DogFoodApi'
-import { clearCart, getProducstInCartSelector } from '../../../redux/slices/cartSlice'
+import {
+  cancelSelectAllProducts, clearCart, getProducstInCartSelector, selectAllProducts,
+} from '../../../redux/slices/cartSlice'
 import { getUserSelector } from '../../../redux/slices/userSlice'
 import { Loader } from '../../Loader/Loader'
 import { CartItem } from '../CartItem/CartItem'
@@ -14,7 +16,7 @@ export function Cart() {
   const {
     data: productsInCart, isLoading, isError, error,
   } = useQuery({
-    queryKey: ['cart'],
+    queryKey: ['cart', cart.length],
     queryFn: () => dogFoodApi.getProductsByIds(cart.map((product) => product.id)),
     enabled: !!(token),
   })
@@ -25,7 +27,17 @@ export function Cart() {
     dispatch(clearCart())
   }
 
-  // const getProductStateById = (idState) => cart.find((prod) => prod.id === idState)
+  const isSelectedAll = !cart.some((prod) => prod.isChecked === false)
+
+  const selectAllHandler = () => {
+    if (isSelectedAll) {
+      dispatch(cancelSelectAllProducts())
+    } else dispatch(selectAllProducts())
+  }
+
+  console.log(isSelectedAll)
+
+  const getProductStateById = (prodId) => cart.find((prod) => prod.id === prodId)
 
   if (isLoading) return <Loader />
   if (isError) {
@@ -47,7 +59,12 @@ export function Cart() {
           <div className={cartStyle.upperPanel}>
             <span>
               <label htmlFor="selectAll">
-                <input id="selectAll" type="checkbox" defaultChecked />
+                <input
+                  id="selectAll"
+                  type="checkbox"
+                  onChange={selectAllHandler}
+                  checked={isSelectedAll}
+                />
                 {' '}
                 Выбрать все
               </label>
@@ -59,6 +76,7 @@ export function Cart() {
           </div>
 
           <ul>
+
             {
             productsInCart.map((prod) => (
               <CartItem
@@ -72,10 +90,10 @@ export function Cart() {
                 wight={prod.wight}
                 stock={prod.stock}
                 discount={prod.discount}
-
-                // isChecked={getProductStateById(prod['_id']).isChecked}
+// eslint-disable-next-line dot-notation
+                isChecked={getProductStateById(prod['_id']).isChecked}
                 // eslint-disable-next-line dot-notation
-                // count={getProductStateById(prod['_id']).count}
+                count={getProductStateById(prod['_id']).count}
               />
 
             ))
@@ -129,7 +147,7 @@ export function Cart() {
             </h5>
           </div>
 
-          <div>
+          <div className={cartStyle.orderContainer}>
             <button type="button" className={cartStyle.btn}>
               Перейти к оформлению
             </button>

@@ -9,11 +9,11 @@ export const initState = {
   },
 
   cart: [
-    {
-      id: '',
-      count: 1,
-      isChecked: false,
-    },
+    // {
+    //   id: '',
+    //   count: 1,
+    //   isChecked: false,
+    // },
   ],
 
   filter: {
