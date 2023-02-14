@@ -1,5 +1,7 @@
 import { useDispatch } from 'react-redux'
-import { deleteFromCart, selectInCart } from '../../../redux/slices/cartSlice'
+import {
+  deleteFromCart, productDecrement, productIncrement, selectInCart,
+} from '../../../redux/slices/cartSlice'
 import cartItemStyle from './cartItem.module.css'
 import minus from '../../../img/minus.svg'
 import plus from '../../../img/plus.svg'
@@ -16,6 +18,13 @@ export function CartItem({
 
   const selectProductHandler = () => {
     dispatch(selectInCart(id))
+  }
+
+  const incrementCountHandler = () => {
+    if (count < stock) { dispatch(productIncrement(id)) }
+  }
+  const decrementCountHandler = () => {
+    if (count > 1) { dispatch(productDecrement(id)) }
   }
 
   return (
@@ -42,13 +51,28 @@ export function CartItem({
       </div>
 
       <div className={cartItemStyle.counter}>
-        <button type="button" className={cartItemStyle.btnChangeAmount}>
-          <img src={minus} alt="Уменьшить" />
+        <button
+          type="button"
+          onClick={decrementCountHandler}
+          disabled={count === 1}
+          className={(count === 1)
+            ? cartItemStyle.btnChangeAmountDisabled
+            : cartItemStyle.btnChangeAmount}
+        >
+          <img
+            src={minus}
+            alt="Уменьшить"
+
+          />
         </button>
         <p>{count}</p>
         <button
           type="button"
-          className={cartItemStyle.btnChangeAmount}
+          onClick={incrementCountHandler}
+          disabled={count === stock}
+          className={(count === stock)
+            ? cartItemStyle.btnChangeAmountDisabled
+            : cartItemStyle.btnChangeAmount}
         >
           <img src={plus} alt="Добавить" />
         </button>

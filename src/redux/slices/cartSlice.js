@@ -50,11 +50,36 @@ const cartSlice = createSlice({
       }))
     },
 
+    productIncrement(state, action) {
+      return state.map((product) => {
+        if (product.id === action.payload) {
+          return {
+            ...product,
+            count: product.count + 1,
+          }
+        }
+        return product
+      })
+    },
+
+    productDecrement(state, action) {
+      return state.map((product) => {
+        if (product.id === action.payload) {
+          return {
+            ...product,
+            count: product.count - 1,
+          }
+        }
+        return product
+      })
+    },
+
   },
 })
 
 export const {
   addToCart, deleteFromCart, clearCart, selectInCart, selectAllProducts, cancelSelectAllProducts,
+  productIncrement, productDecrement,
 } = cartSlice.actions
 
 export const getProducstInCartSelector = (state) => state.cart

@@ -14,6 +14,7 @@ img {
     margin: 4px;
 }
 
+
 .counter {
     display: flex;
 }
@@ -35,8 +36,27 @@ img {
     border: rgb(179, 178, 179);
     border-radius: 4px;
     margin: 0 4px;
+    cursor: pointer;
 
 }
+
+.btnChangeAmountDisabled {
+    cursor: not-allowed;
+    width: 32px;
+    height: 32px;
+    font-family: 'Raleway', sans-serif;
+    background-color: rgb(238, 236, 237);
+    border: rgb(179, 178, 179);
+    border-radius: 4px;
+    margin: 0 4px;
+    
+}
+
+.btnChangeAmountDisabled img {
+    width: 14px;
+    cursor: not-allowed;
+}
+
 .btnChangeAmount img {
     width: 14px;
 }
