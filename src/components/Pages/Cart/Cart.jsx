@@ -39,7 +39,7 @@ export function Cart() {
   return (
     <div className={cartStyle.container}>
       <div>
-        Корзина
+        <h5>Ваша корзина</h5>
       </div>
 
       <div className={cartStyle.cartTab}>
@@ -72,7 +72,7 @@ export function Cart() {
                 wight={prod.wight}
                 stock={prod.stock}
                 discount={prod.discount}
-                // eslint-disable-next-line dot-notation
+
                 // isChecked={getProductStateById(prod['_id']).isChecked}
                 // eslint-disable-next-line dot-notation
                 // count={getProductStateById(prod['_id']).count}
@@ -84,8 +84,58 @@ export function Cart() {
         </div>
 
         <div className={cartStyle.rightPart}>
-          <p> Тут окончательный расчет</p>
+          <h5>Условия заказа</h5>
+          <div className={cartStyle.total}>
+            <p>
+              Итого:
+            </p>
+            <p>
+              Товары (
+              {cart.length}
+              )
+            </p>
+          </div>
+
+          <div className={cartStyle.total}>
+            <p>
+              Сумма:
+            </p>
+            <p>
+              000,00
+              {' '}
+              руб.
+            </p>
+          </div>
+          <div className={cartStyle.total}>
+            <p>
+              Скидка:
+            </p>
+            <p>
+              -
+              000,00
+              {' '}
+              руб.
+            </p>
+          </div>
+
+          <div className={cartStyle.total}>
+            <h5>
+              Общая стоимость:
+            </h5>
+            <h5>
+              000,00
+              {' '}
+              руб.
+            </h5>
+          </div>
+
+          <div>
+            <button type="button" className={cartStyle.btn}>
+              Перейти к оформлению
+            </button>
+          </div>
         </div>
+
       </div>
 
     </div>

@@ -28,11 +28,30 @@
 
 .upperPanel button {
     margin: 0 30px;
-    font-family: 'Raleway', sans—serif;
-    color: #6a6666;
-    font-size: 18px;
-    height: 40px;
-    background-color: #ffffff;
+    padding: 0;
     border: none;
-    cursor: pointer;    
+    font: inherit;
+    color: inherit;
+    background-color: transparent;
+    cursor: pointer;
 }
+
+.total {
+    display: flex;
+    justify-content: space-between;
+}
+
+.btn {
+    font-family: 'Raleway', sans—serif;
+    color: #fff;
+    height: 40px;
+    padding: 0 16px;
+    margin: 8px 0px;
+    background-color: #23a030;
+    border: none;
+    border-radius: 12px;
+    cursor: pointer;
+    box-shadow: 0 6px 26px rgb(52 213 68 / 22%);
+    
+  }
+
