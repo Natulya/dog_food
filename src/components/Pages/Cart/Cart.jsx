@@ -1,5 +1,6 @@
 import { useQuery } from '@tanstack/react-query'
 import { useDispatch, useSelector } from 'react-redux'
+import { Link } from 'react-router-dom'
 import { dogFoodApi } from '../../../Api/DogFoodApi'
 import {
   cancelSelectAllProducts, clearCart, getProducstInCartSelector, selectAllProducts,
@@ -48,6 +49,37 @@ export function Cart() {
     )
   }
 
+  if (!cart.length) {
+    return (
+      <div className={cartStyle.emptyCartWrapper}>
+        <p>В корзине пока пусто</p>
+        <div className={cartStyle.linksWrapper}>
+          <p>
+            Загляните на главную, или в каталог чтобы выбрать товары
+          </p>
+          <div>
+            <Link
+              to="/"
+              className={cartStyle.link}
+            >
+              <button type="button">
+                <b>На главную</b>
+              </button>
+            </Link>
+            <Link
+              to="/products"
+              className={cartStyle.link}
+            >
+              <button type="button">
+                <b>В каталог</b>
+              </button>
+            </Link>
+          </div>
+        </div>
+      </div>
+    )
+  }
+
   return (
     <div className={cartStyle.container}>
       <div>
@@ -90,14 +122,13 @@ export function Cart() {
                 wight={prod.wight}
                 stock={prod.stock}
                 discount={prod.discount}
-// eslint-disable-next-line dot-notation
+                // eslint-disable-next-line dot-notation
                 isChecked={getProductStateById(prod['_id']).isChecked}
                 // eslint-disable-next-line dot-notation
                 count={getProductStateById(prod['_id']).count}
               />
-
             ))
-          }
+            }
           </ul>
         </div>
 
