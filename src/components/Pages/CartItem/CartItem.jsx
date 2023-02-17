@@ -1,4 +1,6 @@
 import { useDispatch } from 'react-redux'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faTrashAlt, faHeart } from '@fortawesome/free-regular-svg-icons'
 import {
   deleteFromCart, productDecrement, productIncrement, selectInCart,
 } from '../../../redux/slices/cartSlice'
@@ -37,17 +39,8 @@ export function CartItem({
         />
       </div>
       <img src={pictures} alt={name} className={cartItemStyle.img} />
-      <div>
+      <div className={cartItemStyle.name}>
         <h5>{name}</h5>
-        <button
-          type="button"
-          onClick={deleteProductHandler}
-          className={cartItemStyle.deleteBtn}
-        >
-          Удалить
-
-        </button>
-
       </div>
 
       <div className={cartItemStyle.counter}>
@@ -78,22 +71,27 @@ export function CartItem({
         </button>
       </div>
 
-      <div>
+      <div className={cartItemStyle.cost}>
         <p>
-          {price}
-          {' '}
-          руб.
+          <b>
+            {discount > 0 && `${((price * (100 - discount)) / 100)} руб.`}
+            {discount === 0 && `${price} руб.`}
+          </b>
         </p>
-        <p>
-          {discount}
-          {' '}
-          %
+        <p className={cartItemStyle.beforeDiscount}>
+          {discount > 0 && (`${price} руб.`)}
         </p>
-        <p>
-          {stock}
-          {' '}
-          шт
-        </p>
+        <div className={cartItemStyle.iconsWrapper}>
+
+          <FontAwesomeIcon
+            icon={faTrashAlt}
+            className={cartItemStyle.iconTrash}
+            onClick={deleteProductHandler}
+          />
+
+          <FontAwesomeIcon icon={faHeart} className={cartItemStyle.iconHeart} />
+        </div>
+
       </div>
 
     </li>

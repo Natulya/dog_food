@@ -22,11 +22,16 @@ export function Cart() {
     enabled: !!(token),
   })
 
-  console.log(productsInCart)
-
-  const clearCartHandler = () => {
-    dispatch(clearCart())
+  if (isLoading) return <Loader />
+  if (isError) {
+    return (
+      <div>
+        {error.message}
+      </div>
+    )
   }
+
+  console.log(productsInCart)
 
   const isSelectedAll = !cart.some((prod) => prod.isChecked === false)
 
@@ -38,16 +43,25 @@ export function Cart() {
 
   console.log(isSelectedAll)
 
-  const getProductStateById = (prodId) => cart.find((prod) => prod.id === prodId)
-
-  if (isLoading) return <Loader />
-  if (isError) {
-    return (
-      <div>
-        {error.message}
-      </div>
-    )
+  const clearCartHandler = () => {
+    dispatch(clearCart())
   }
+
+  const checkedProducts = cart.filter((prod) => prod.isChecked)
+
+  console.log(checkedProducts)
+
+  let totalCost = 0
+
+  checkedProducts.map((prod) => {
+    // eslint-disable-next-line dot-notation
+    const checkedProduct = productsInCart.find((el) => prod.id === el['_id'])
+
+    totalCost += checkedProduct.price * (1 - checkedProduct.discount / 100)
+    return totalCost
+  })
+
+  const getProductStateById = (prodId) => cart.find((prod) => prod.id === prodId)
 
   if (!cart.length) {
     return (
@@ -150,7 +164,7 @@ export function Cart() {
               Сумма:
             </p>
             <p>
-              000,00
+              {totalCost}
               {' '}
               руб.
             </p>
@@ -172,7 +186,7 @@ export function Cart() {
               Общая стоимость:
             </h5>
             <h5>
-              000,00
+              {totalCost}
               {' '}
               руб.
             </h5>

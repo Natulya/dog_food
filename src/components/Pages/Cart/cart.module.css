@@ -14,7 +14,7 @@
 
 .leftPart {
     width: 68%;
-
+    
 }
 
 .leftPart h5 {
@@ -34,6 +34,7 @@
 .upperPanel {
     display: flex;
     align-items: center;
+    padding-left: 9px;
 }
 
 .upperPanel button {
