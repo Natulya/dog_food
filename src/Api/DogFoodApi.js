@@ -61,12 +61,16 @@ class DogFoodApi {
     return res.json()
   }
 
-  async getProductsList() {
-    const res = await fetch(`${this.baseUrl}/products`, {
+  async getProductsList(search) {
+    const res = await fetch(`${this.baseUrl}/products/search?query=${search}`, {
       headers: {
         authorization: DogFoodApi.getAuthorizationHeader(),
       },
     })
+
+    if (res.status >= 400) {
+      throw new Error(`Ошибка ${res.status}: Попробуйте сделать запрос позже.`)
+    }
 
     return res.json()
   }

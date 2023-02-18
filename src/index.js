@@ -6,11 +6,12 @@ import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
 import { Provider } from 'react-redux'
 import App from './App'
 import { Main } from './components/Pages/Main/Main'
-import { ProductsList } from './components/Pages/ProductsList/ProductsList'
+// import { ProductsList } from './components/Pages/ProductsList/ProductsList'
 import { SigninPage } from './components/Pages/SigninPage/SigninPage'
 import { SignupPage } from './components/Pages/SignupPage/SignupPage'
 import { store } from './redux/store'
 import { Cart } from './components/Pages/Cart/Cart'
+import { Catalog } from './components/Pages/Catalog/Catalog'
 
 const router = createBrowserRouter([
   {
@@ -23,7 +24,7 @@ const router = createBrowserRouter([
       },
       {
         path: '/products',
-        element: <ProductsList />,
+        element: <Catalog />,
       },
       {
         path: '/signin',

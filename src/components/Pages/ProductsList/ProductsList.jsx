@@ -3,6 +3,7 @@ import { useEffect } from 'react'
 import { useSelector } from 'react-redux'
 import { useNavigate } from 'react-router-dom'
 import { dogFoodApi } from '../../../Api/DogFoodApi'
+import { getSearchSelector } from '../../../redux/slices/filterSlice'
 
 import { getUserSelector } from '../../../redux/slices/userSlice'
 import { Loader } from '../../Loader/Loader'
@@ -11,6 +12,7 @@ import productsListStyle from './productsList.module.css'
 
 export function ProductsList() {
   const { token } = useSelector(getUserSelector)
+  const search = useSelector(getSearchSelector)
   const navigateProducts = useNavigate()
 
   useEffect(() => {
@@ -20,14 +22,17 @@ export function ProductsList() {
   }, [token])
 
   const {
-    data, isLoading, isError, error, refetch,
+    data: products, isLoading, isError, error, refetch,
   } = useQuery({
-    queryKey: ['productListFetch'],
-    queryFn: () => dogFoodApi.getProductsList(),
-
+    queryKey: ['productListFetch', search],
+    queryFn: () => dogFoodApi.getProductsList(search),
+    enabled: !!(token),
   })
 
   if (isLoading) return <Loader />
+  if (products === undefined) {
+    return <p>Тут undefined</p>
+  }
   if (isError) {
     return (
       <div className={productsListStyle.errorMessage}>
@@ -35,11 +40,7 @@ export function ProductsList() {
       </div>
     )
   }
-
-  const { products } = data
-  if (products === undefined) {
-    return <p>Тут undefined</p>
-  }
+  console.log({ search })
 
   console.log({
     refetch,
@@ -57,7 +58,6 @@ export function ProductsList() {
           name={item.name}
           price={item.price}
           wight={item.wight}
-
         />
       ))}
     </div>

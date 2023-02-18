@@ -1,0 +1,6 @@
+export const popular = 'Popular'
+export const newProducts = 'New'
+export const lowPrice = 'PriceUp'
+export const highPrice = 'PriceDown'
+export const rating = 'Rating'
+export const discount = 'Discount'

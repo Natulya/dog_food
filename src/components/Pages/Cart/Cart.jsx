@@ -11,17 +11,21 @@ import { CartItem } from '../CartItem/CartItem'
 import cartStyle from './cart.module.css'
 
 export function Cart() {
-  const cart = useSelector(getProducstInCartSelector)
+  const productsInCartFromState = useSelector(getProducstInCartSelector)
   const token = useSelector(getUserSelector)
   const dispatch = useDispatch()
   const {
-    data: productsInCart, isLoading, isError, error,
+    data: productsInCartFromApi, isLoading, isError, error,
   } = useQuery({
-    queryKey: ['cart', cart.length],
-    queryFn: () => dogFoodApi.getProductsByIds(cart.map((product) => product.id)),
+    queryKey: ['cart', productsInCartFromState.length],
+    queryFn: () => dogFoodApi.getProductsByIds(productsInCartFromState.map(
+      (product) => product.id,
+    )),
     enabled: !!(token),
+    keepPreviousData: true,
   })
 
+  /* убрать if с корневого уровня */
   if (isLoading) return <Loader />
   if (isError) {
     return (
@@ -31,9 +35,9 @@ export function Cart() {
     )
   }
 
-  console.log(productsInCart)
+  console.log(productsInCartFromApi)
 
-  const isSelectedAll = !cart.some((prod) => prod.isChecked === false)
+  const isSelectedAll = !productsInCartFromState.some((prod) => prod.isChecked === false)
 
   const selectAllHandler = () => {
     if (isSelectedAll) {
@@ -47,23 +51,33 @@ export function Cart() {
     dispatch(clearCart())
   }
 
-  const checkedProducts = cart.filter((prod) => prod.isChecked)
+  const checkedProductsFromState = productsInCartFromState.filter((prod) => prod.isChecked)
 
-  console.log(checkedProducts)
+  console.log(checkedProductsFromState)
 
-  let totalCost = 0
+  const getProductStateById = (prodId) => productsInCartFromState.find((prod) => prod.id === prodId)
 
-  checkedProducts.map((prod) => {
+  const costWithoutDiscount = () => checkedProductsFromState().reduce((sum, product) => {
+    const updatedSum = sum + product.count * checkedProductsFromState(product.id).price
+    return Math.ceil(updatedSum)
+  }, 0)
+
+  const totalCost = checkedProductsFromState.reduce((sum, productFromState) => {
     // eslint-disable-next-line dot-notation
-    const checkedProduct = productsInCart.find((el) => prod.id === el['_id'])
+    const productFromApi = productsInCartFromApi.find(
 
-    totalCost += checkedProduct.price * (1 - checkedProduct.discount / 100)
-    return totalCost
-  })
+      // eslint-disable-next-line dot-notation
+      (prodFromApi) => productFromState.id === prodFromApi['_id'],
+    )
+    const { price, discount } = productFromApi
 
-  const getProductStateById = (prodId) => cart.find((prod) => prod.id === prodId)
+    const { count } = productFromState
+    const productTotalCost = price * (1 - discount / 100) * count
 
-  if (!cart.length) {
+    return sum + productTotalCost
+  }, 0)
+
+  if (!productsInCartFromState.length) {
     return (
       <div className={cartStyle.emptyCartWrapper}>
         <p>В корзине пока пусто</p>
@@ -124,7 +138,7 @@ export function Cart() {
           <ul>
 
             {
-            productsInCart.map((prod) => (
+            productsInCartFromApi.map((prod) => (
               <CartItem
               // eslint-disable-next-line dot-notation
                 key={prod['_id']}
@@ -154,7 +168,7 @@ export function Cart() {
             </p>
             <p>
               Товары (
-              {cart.length}
+              {productsInCartFromState.length}
               )
             </p>
           </div>
@@ -164,7 +178,7 @@ export function Cart() {
               Сумма:
             </p>
             <p>
-              {totalCost}
+              {costWithoutDiscount}
               {' '}
               руб.
             </p>
