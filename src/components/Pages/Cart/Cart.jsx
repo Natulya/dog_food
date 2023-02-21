@@ -25,7 +25,6 @@ export function Cart() {
     keepPreviousData: true,
   })
 
-  /* убрать if с корневого уровня */
   if (isLoading) return <Loader />
   if (isError) {
     return (
@@ -35,7 +34,7 @@ export function Cart() {
     )
   }
 
-  console.log(productsInCartFromApi)
+  console.log('productsInCartFromApi', productsInCartFromApi)
 
   const isSelectedAll = !productsInCartFromState.some((prod) => prod.isChecked === false)
 
@@ -53,19 +52,37 @@ export function Cart() {
 
   const checkedProductsFromState = productsInCartFromState.filter((prod) => prod.isChecked)
 
-  console.log(checkedProductsFromState)
+  console.log('checkedProductsFromState', checkedProductsFromState)
 
   const getProductStateById = (prodId) => productsInCartFromState.find((prod) => prod.id === prodId)
 
-  const costWithoutDiscount = () => checkedProductsFromState().reduce((sum, product) => {
-    const updatedSum = sum + product.count * checkedProductsFromState(product.id).price
-    return Math.ceil(updatedSum)
+  const costWithoutDiscount = checkedProductsFromState.reduce((sum, productFromState) => {
+    const productFromApi = productsInCartFromApi.find(
+      // eslint-disable-next-line dot-notation
+      (prodFromApi) => productFromState.id === prodFromApi['_id'],
+    )
+    const { price } = productFromApi
+    const { count } = productFromState
+
+    const productCostWithoutDiscount = price * count
+
+    return sum + productCostWithoutDiscount
+  }, 0)
+
+  const sumOfDiscounts = checkedProductsFromState.reduce((sum, productFromState) => {
+    const productFromApi = productsInCartFromApi.find(
+      // eslint-disable-next-line dot-notation
+      (prodFromApi) => productFromState.id === prodFromApi['_id'],
+    )
+    const { price, discount } = productFromApi
+    const { count } = productFromState
+    const discountOfProduct = (price - (price * (1 - discount / 100))) * count
+
+    return sum + discountOfProduct
   }, 0)
 
   const totalCost = checkedProductsFromState.reduce((sum, productFromState) => {
-    // eslint-disable-next-line dot-notation
     const productFromApi = productsInCartFromApi.find(
-
       // eslint-disable-next-line dot-notation
       (prodFromApi) => productFromState.id === prodFromApi['_id'],
     )
@@ -189,7 +206,7 @@ export function Cart() {
             </p>
             <p>
               -
-              000,00
+              {sumOfDiscounts}
               {' '}
               руб.
             </p>

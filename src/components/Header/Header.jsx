@@ -4,7 +4,7 @@ import { faShieldDog, faCartShopping } from '@fortawesome/free-solid-svg-icons'
 import { Link } from 'react-router-dom'
 import { useEffect } from 'react'
 import headerStyle from './header.module.css'
-import { Search } from '../Search/Search'
+// import { Search } from '../Search/Search'
 import { getUserSelector, setUserToken } from '../../redux/slices/userSlice'
 // import { dogFoodApi } from '../../Api/DogFoodApi'
 import { DOG_FOOD_TOKEN_KEY } from '../../redux/constants'
@@ -46,7 +46,7 @@ export function Header() {
         <h3 className={headerStyle.catalog}>Каталог</h3>
       </Link>
 
-      <Search />
+      {/* <Search /> */}
 
       <div className={headerStyle.leftSide}>
         {token
