@@ -1,0 +1,29 @@
+.container {
+    display: flex;
+    flex-direction: column;
+    min-height: 600px;
+    
+}
+
+.personalInput {
+    /* border: 1px solid rgb(186, 186, 186); */
+    border-radius: 8px;
+    max-width: 400px;
+    border: none;
+    height: 38px;
+    padding: 8px;
+    margin: 2px;
+}
+
+.personalInput:focus {
+    background-color: rgba(179, 3, 88, 0.138);
+    outline-color: firebrick;
+    box-shadow: -3px -3px 15px rgba(179, 3, 88, 0.478);
+    transition: .1s;
+    transition-property: box-shadow;
+}
+
+span {
+color:rgb(148, 148, 148);
+margin: 0 10px;
+}

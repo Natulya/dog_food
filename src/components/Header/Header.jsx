@@ -1,28 +1,37 @@
 import { useDispatch, useSelector } from 'react-redux'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faShieldDog, faCartShopping } from '@fortawesome/free-solid-svg-icons'
+import { faCircleUser, faHeart } from '@fortawesome/free-regular-svg-icons'
 import { Link } from 'react-router-dom'
 import { useEffect } from 'react'
 import headerStyle from './header.module.css'
 // import { Search } from '../Search/Search'
-import { getUserSelector, setUserToken } from '../../redux/slices/userSlice'
+import { getUserSelector, setUserInfo, setUserToken } from '../../redux/slices/userSlice'
 // import { dogFoodApi } from '../../Api/DogFoodApi'
-import { DOG_FOOD_TOKEN_KEY } from '../../redux/constants'
+import { DOG_FOOD_TOKEN_KEY, DOG_FOOD_USER_DATA_KEY } from '../../redux/constants'
 import { getProducstInCartSelector } from '../../redux/slices/cartSlice'
 
 export function Header() {
-  const { token } = useSelector(getUserSelector)
+  const {
+    token, name, email, id,
+  } = useSelector(getUserSelector)
+  // const user = useSelector(getUserSelector)
+  // console.log(user)
   const productsInCart = useSelector(getProducstInCartSelector)
   const dispatch = useDispatch()
+
+  const userName = name
 
   console.log('Header Render')
 
   useEffect(() => {
     localStorage.setItem(DOG_FOOD_TOKEN_KEY, token)
-  }, [token])
+    localStorage.setItem(DOG_FOOD_USER_DATA_KEY, JSON.stringify({ name, email, id }))
+  }, [token, name, email, id])
 
   const logoutHandler = () => {
     dispatch(setUserToken(''))
+    dispatch(setUserInfo('', 'user', ''))
   }
 
   return (
@@ -47,6 +56,21 @@ export function Header() {
       </Link>
 
       {/* <Search /> */}
+
+      <Link to="/account">
+        <div className={headerStyle.cartInfo}>
+
+          <FontAwesomeIcon icon={faCircleUser} className={headerStyle.iconCart} />
+          <p>{userName}</p>
+        </div>
+      </Link>
+
+      <Link to="/favourite">
+        <div className={headerStyle.cartInfo}>
+          <FontAwesomeIcon icon={faHeart} className={headerStyle.iconCart} />
+          <p>Избранное</p>
+        </div>
+      </Link>
 
       <div className={headerStyle.leftSide}>
         {token

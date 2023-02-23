@@ -6,7 +6,7 @@ import { useDispatch } from 'react-redux'
 
 import { useNavigate } from 'react-router-dom'
 import { dogFoodApi } from '../../../Api/DogFoodApi'
-import { setUserToken } from '../../../redux/slices/userSlice'
+import { setUserInfo, setUserToken } from '../../../redux/slices/userSlice'
 
 import { withQuery } from '../../HOCs/withQuery'
 import signInPageStyle from './signInPage.module.css'
@@ -76,6 +76,8 @@ export function SigninPage() {
     mutationFn: (values) => dogFoodApi.signIn(values)
       .then((user) => {
         dispatch(setUserToken(user.token))
+        dispatch(setUserInfo(user.data['_id'], user.data.name, user.data.email))
+        //
       }),
   })
 

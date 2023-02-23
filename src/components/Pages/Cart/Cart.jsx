@@ -61,12 +61,15 @@ export function Cart() {
       // eslint-disable-next-line dot-notation
       (prodFromApi) => productFromState.id === prodFromApi['_id'],
     )
-    const { price } = productFromApi
-    const { count } = productFromState
 
-    const productCostWithoutDiscount = price * count
+    if (productFromApi) {
+      const { price } = productFromApi
+      const { count } = productFromState
 
-    return sum + productCostWithoutDiscount
+      const productCostWithoutDiscount = price * count
+
+      return sum + productCostWithoutDiscount
+    } return sum + 0
   }, 0)
 
   const sumOfDiscounts = checkedProductsFromState.reduce((sum, productFromState) => {
@@ -168,9 +171,9 @@ export function Cart() {
                 stock={prod.stock}
                 discount={prod.discount}
                 // eslint-disable-next-line dot-notation
-                isChecked={getProductStateById(prod['_id']).isChecked}
+                isChecked={getProductStateById(prod['_id'])?.isChecked}
                 // eslint-disable-next-line dot-notation
-                count={getProductStateById(prod['_id']).count}
+                count={getProductStateById(prod['_id'])?.count}
               />
             ))
             }
