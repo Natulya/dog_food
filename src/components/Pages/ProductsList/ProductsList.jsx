@@ -50,9 +50,7 @@ export function ProductsList() {
     <div className={productsListStyle.container}>
       {products.map((item) => (
         <ProductCard
-          // eslint-disable-next-line dot-notation
           key={item['_id']}
-          // eslint-disable-next-line dot-notation
           id={item['_id']}
           pictures={item.pictures}
           name={item.name}

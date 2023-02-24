@@ -58,7 +58,6 @@ export function Cart() {
 
   const costWithoutDiscount = checkedProductsFromState.reduce((sum, productFromState) => {
     const productFromApi = productsInCartFromApi.find(
-      // eslint-disable-next-line dot-notation
       (prodFromApi) => productFromState.id === prodFromApi['_id'],
     )
 
@@ -74,7 +73,6 @@ export function Cart() {
 
   const sumOfDiscounts = checkedProductsFromState.reduce((sum, productFromState) => {
     const productFromApi = productsInCartFromApi.find(
-      // eslint-disable-next-line dot-notation
       (prodFromApi) => productFromState.id === prodFromApi['_id'],
     )
     const { price, discount } = productFromApi
@@ -86,7 +84,6 @@ export function Cart() {
 
   const totalCost = checkedProductsFromState.reduce((sum, productFromState) => {
     const productFromApi = productsInCartFromApi.find(
-      // eslint-disable-next-line dot-notation
       (prodFromApi) => productFromState.id === prodFromApi['_id'],
     )
     const { price, discount } = productFromApi
@@ -160,9 +157,7 @@ export function Cart() {
             {
             productsInCartFromApi.map((prod) => (
               <CartItem
-              // eslint-disable-next-line dot-notation
                 key={prod['_id']}
-              // eslint-disable-next-line dot-notation
                 id={prod['_id']}
                 pictures={prod.pictures}
                 name={prod.name}
@@ -170,9 +165,7 @@ export function Cart() {
                 wight={prod.wight}
                 stock={prod.stock}
                 discount={prod.discount}
-                // eslint-disable-next-line dot-notation
                 isChecked={getProductStateById(prod['_id'])?.isChecked}
-                // eslint-disable-next-line dot-notation
                 count={getProductStateById(prod['_id'])?.count}
               />
             ))
