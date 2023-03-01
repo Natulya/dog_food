@@ -8,16 +8,18 @@ import {
 import { getUserSelector } from '../../../redux/slices/userSlice'
 import { Loader } from '../../Loader/Loader'
 import { CartItem } from '../CartItem/CartItem'
+import { getQueryCartKey } from './utils'
 import cartStyle from './cart.module.css'
 
 export function Cart() {
   const productsInCartFromState = useSelector(getProducstInCartSelector)
   const token = useSelector(getUserSelector)
   const dispatch = useDispatch()
+  const getKey = productsInCartFromState.map((item) => item.id).toString()
   const {
     data: productsInCartFromApi, isLoading, isError, error,
   } = useQuery({
-    queryKey: ['cart', productsInCartFromState.length],
+    queryKey: getQueryCartKey(getKey),
     queryFn: () => dogFoodApi.getProductsByIds(productsInCartFromState.map(
       (product) => product.id,
     )),
