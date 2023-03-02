@@ -40,7 +40,7 @@ export function ProductsList() {
       </div>
     )
   }
-  console.log({ search })
+  // console.log({ search })
 
   console.log({
     refetch,

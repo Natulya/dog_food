@@ -9,11 +9,11 @@ export function Account() {
   const {
     token, name, email, id,
   } = useSelector(getUserSelector)
-  const navigateProducts = useNavigate()
+  const navigate = useNavigate()
 
   useEffect(() => {
     if (!token) {
-      navigateProducts('/signup')
+      navigate('/signup')
     }
   }, [token])
 

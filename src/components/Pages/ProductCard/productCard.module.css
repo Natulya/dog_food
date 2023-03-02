@@ -3,6 +3,11 @@
     margin: 16px 8px;
     border: 1px solid rgba(225, 225, 225, 0.835);
     border-radius: 12px;
+    color:black
+}
+
+.cardWrapper span {
+    margin: 0;
 }
 
 .card {
@@ -23,7 +28,11 @@
     position: absolute;
 	left: 185px;
 	top: 4px;
-   
+}
+
+.icon:hover {
+    font-size: 25px;
+    color: rgba(199, 0, 60, 0.971);
 
 }
 
@@ -44,5 +53,8 @@ width: 210px;
   border-radius: 12px;
   cursor: pointer;
   box-shadow: 0 6px 26px rgb(52 213 68 / 22%);
-  
 }
+.btn:hover {
+    background-color: #379440;
+    box-shadow: 0 6px 26px rgba(52, 213, 68, 0.46);
+  }

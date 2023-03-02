@@ -82,6 +82,20 @@ class DogFoodApi {
       },
     }).then((res) => res.json())))
   }
+
+  async getProduct(id) {
+    const res = await fetch(`${this.baseUrl}/products/${id}`, {
+      headers: {
+        authorization: DogFoodApi.getAuthorizationHeader(),
+      },
+    })
+
+    if (res.status >= 400) {
+      throw new Error(`Ошибка ${res.status}: Попробуйте сделать запрос позже.`)
+    }
+
+    return res.json()
+  }
 }
 
 export const dogFoodApi = new DogFoodApi({ baseUrl: 'https://api.react-learning.ru' })

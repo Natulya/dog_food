@@ -14,6 +14,7 @@ import { Cart } from './components/Pages/Cart/Cart'
 import { Catalog } from './components/Pages/Catalog/Catalog'
 import { Favourite } from './components/Pages/Favourite/Favourite'
 import { Account } from './components/Pages/Account/Account'
+import { ProductDetail } from './components/ProductDetail/ProductDetail'
 
 const router = createBrowserRouter([
   {
@@ -27,6 +28,10 @@ const router = createBrowserRouter([
       {
         path: '/products',
         element: <Catalog />,
+      },
+      {
+        path: '/products/:productId',
+        element: <ProductDetail />,
       },
       {
         path: '/signin',

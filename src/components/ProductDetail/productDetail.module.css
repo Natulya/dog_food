@@ -1,0 +1,69 @@
+.cardWrapper {
+    background: white;
+    margin: 16px 8px;
+    /* border: 1px solid rgba(225, 225, 225, 0.835);
+    border-radius: 12px; */
+    display: flex;
+    justify-content: center;
+    min-height: 600px;
+}
+
+.card {
+    /* position: relative; */
+    display: flex;
+}
+
+.infoBlock {
+    margin-top: 40px;
+}
+
+.infoBlock span {
+    color:rgb(148, 148, 148);
+    margin-right: 10px;
+    margin-left: 0;
+       
+}
+
+.infoBlockInner {
+    margin-top: 20px;
+}
+
+
+.icon {
+    font-size: 24px;
+    color: rgba(199, 0, 60, 0.487);
+    margin: 20px 0 0 20px;
+    cursor: pointer;
+    /* position: absolute;
+	left: 185px;
+	top: 4px; */
+}
+
+.icon:hover {
+    color: rgba(199, 0, 60, 0.938);
+}
+
+.pic {
+    margin: 20px;
+    padding: 20px;
+    /* border: 1px solid rgba(181, 181, 181, 0.358);
+    border-radius: 50px; */
+    width: 310px;
+} 
+
+.btn {
+  font-family: 'Raleway', sans—serif;
+  color: #fff;
+  height: 40px;
+  padding: 0 16px;
+  margin: 8px 0px;
+  background-color: #23a030;
+  border: none;
+  border-radius: 12px;
+  cursor: pointer;
+  box-shadow: 0 6px 26px rgb(52 213 68 / 22%);
+  
+}
+.btn:hover {
+    background-color: #379440;
+  }
