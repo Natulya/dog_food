@@ -12,9 +12,9 @@ import { SignupPage } from './components/Pages/SignupPage/SignupPage'
 import { store } from './redux/store'
 import { Cart } from './components/Pages/Cart/Cart'
 import { Catalog } from './components/Pages/Catalog/Catalog'
-import { Favourite } from './components/Pages/Favourite/Favourite'
 import { Account } from './components/Pages/Account/Account'
 import { ProductDetail } from './components/ProductDetail/ProductDetail'
+import { FavouriteList } from './components/Pages/FavouritesList/FavouritesList'
 
 const router = createBrowserRouter([
   {
@@ -47,7 +47,7 @@ const router = createBrowserRouter([
       },
       {
         path: '/favourite',
-        element: <Favourite />,
+        element: <FavouriteList />,
       },
       {
         path: '/account',

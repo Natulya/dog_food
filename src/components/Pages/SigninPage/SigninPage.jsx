@@ -6,6 +6,8 @@ import { useDispatch } from 'react-redux'
 
 import { useNavigate } from 'react-router-dom'
 import { dogFoodApi } from '../../../Api/DogFoodApi'
+import { DOG_FOOD_CART_KEY } from '../../../redux/constants'
+import { cartInitialize } from '../../../redux/slices/cartSlice'
 import { setUserInfo, setUserToken } from '../../../redux/slices/userSlice'
 
 import { withQuery } from '../../HOCs/withQuery'
@@ -76,8 +78,14 @@ export function SigninPage() {
     mutationFn: (values) => dogFoodApi.signIn(values)
       .then((user) => {
         dispatch(setUserToken(user.token))
+
+        const cartFromLS = window.localStorage.getItem(DOG_FOOD_CART_KEY)
+        if (cartFromLS) {
+          const cartForCurrentUser = JSON.parse(cartFromLS)[user.data['_id']]
+          dispatch(cartInitialize(cartForCurrentUser ?? []))
+        }
+
         dispatch(setUserInfo(user.data['_id'], user.data.name, user.data.email))
-        //
       }),
   })
 

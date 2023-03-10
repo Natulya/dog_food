@@ -74,12 +74,16 @@ const cartSlice = createSlice({
       })
     },
 
+    cartInitialize(state, action) {
+      return action.payload
+    },
+
   },
 })
 
 export const {
   addToCart, deleteFromCart, clearCart, selectInCart, selectAllProducts, cancelSelectAllProducts,
-  productIncrement, productDecrement,
+  productIncrement, productDecrement, cartInitialize,
 } = cartSlice.actions
 
 export const getProducstInCartSelector = (state) => state.cart

@@ -9,7 +9,7 @@ import headerStyle from './header.module.css'
 import { getUserSelector, setUserInfo, setUserToken } from '../../redux/slices/userSlice'
 // import { dogFoodApi } from '../../Api/DogFoodApi'
 import { DOG_FOOD_TOKEN_KEY, DOG_FOOD_USER_DATA_KEY } from '../../redux/constants'
-import { getProducstInCartSelector } from '../../redux/slices/cartSlice'
+import { clearCart, getProducstInCartSelector } from '../../redux/slices/cartSlice'
 
 export function Header() {
   const {
@@ -32,6 +32,7 @@ export function Header() {
   const logoutHandler = () => {
     dispatch(setUserToken(''))
     dispatch(setUserInfo('', 'user', ''))
+    dispatch(clearCart())
   }
 
   return (

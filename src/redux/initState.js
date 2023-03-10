@@ -24,6 +24,7 @@ export const initState = {
     search: '',
   },
 
+  favourites: [],
   /*
 cart: {
   product_id: {
