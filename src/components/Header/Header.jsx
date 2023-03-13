@@ -8,12 +8,13 @@ import headerStyle from './header.module.css'
 // import { Search } from '../Search/Search'
 import { getUserSelector, setUserInfo, setUserToken } from '../../redux/slices/userSlice'
 // import { dogFoodApi } from '../../Api/DogFoodApi'
-import { DOG_FOOD_TOKEN_KEY, DOG_FOOD_USER_DATA_KEY } from '../../redux/constants'
+import { DOG_FOOD_TOKEN_KEY } from '../../redux/constants'
 import { clearCart, getProducstInCartSelector } from '../../redux/slices/cartSlice'
+import { clearFavourites } from '../../redux/slices/favouriteSlice'
 
 export function Header() {
   const {
-    token, name, email, id,
+    token, name,
   } = useSelector(getUserSelector)
   // const user = useSelector(getUserSelector)
   // console.log(user)
@@ -26,13 +27,20 @@ export function Header() {
 
   useEffect(() => {
     localStorage.setItem(DOG_FOOD_TOKEN_KEY, token)
+  }, [token])
+
+  /*
+  useEffect(() => {
+    localStorage.setItem(DOG_FOOD_TOKEN_KEY, token)
     localStorage.setItem(DOG_FOOD_USER_DATA_KEY, JSON.stringify({ name, email, id }))
   }, [token, name, email, id])
+  */
 
   const logoutHandler = () => {
     dispatch(setUserToken(''))
     dispatch(setUserInfo('', 'user', ''))
     dispatch(clearCart())
+    dispatch(clearFavourites())
   }
 
   return (

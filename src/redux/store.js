@@ -1,6 +1,6 @@
 import { configureStore } from '@reduxjs/toolkit'
 import { DOG_FOOD_CART_KEY } from './constants'
-import { initState } from './initState'
+import { getInitState } from './initState'
 import { cartReducer } from './slices/cartSlice'
 import { favouriteReducer } from './slices/favouriteSlice'
 import { filterReducer } from './slices/filterSlice'
@@ -13,19 +13,23 @@ export const store = configureStore({
     filter: filterReducer,
     favourites: favouriteReducer,
   },
-  preloadedState: initState,
+  preloadedState: getInitState(),
 })
 
 store.subscribe(() => {
-  const cartsFromLS = window.localStorage.getItem(DOG_FOOD_CART_KEY)
-  const currentState = store.getState()
-
-  const parsedCartsFromLS = cartsFromLS ? JSON.parse(cartsFromLS) : {}
-
-  if (currentState.user.id) {
-    window.localStorage.setItem(DOG_FOOD_CART_KEY, JSON.stringify({
-      ...parsedCartsFromLS,
-      [currentState.user.id]: currentState.cart,
-    }))
-  }
+  window.localStorage.setItem(DOG_FOOD_CART_KEY, JSON.stringify(store.getState()))
 })
+
+// store.subscribe(() => {
+//   const cartsFromLS = window.localStorage.getItem(DOG_FOOD_CART_KEY)
+//   const currentState = store.getState()
+
+//   const parsedCartsFromLS = cartsFromLS ? JSON.parse(cartsFromLS) : {}
+
+//   if (currentState.user.id) {
+//     window.localStorage.setItem(DOG_FOOD_CART_KEY, JSON.stringify({
+//       ...parsedCartsFromLS,
+//       [currentState.user.id]: currentState.cart,
+//     }))
+//   }
+// })
