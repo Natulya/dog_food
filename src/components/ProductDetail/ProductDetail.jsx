@@ -1,4 +1,5 @@
 import { faHeart } from '@fortawesome/free-regular-svg-icons'
+import { faHeartCircleCheck } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { useQuery } from '@tanstack/react-query'
 import { useEffect } from 'react'
@@ -6,6 +7,11 @@ import { useDispatch, useSelector } from 'react-redux'
 import { useNavigate, useParams } from 'react-router-dom'
 import { dogFoodApi } from '../../Api/DogFoodApi'
 import { addToCart, deleteFromCart, getProducstInCartSelector } from '../../redux/slices/cartSlice'
+import {
+  addInFavourites,
+  deleteFromFavourites,
+  getAllFavouriteProductsSelector,
+} from '../../redux/slices/favouriteSlice'
 import { getUserSelector } from '../../redux/slices/userSlice'
 import { Loader } from '../Loader/Loader'
 import productDetailStyle from './productDetail.module.css'
@@ -16,6 +22,7 @@ export function ProductDetail() {
 
   const productsInCart = useSelector(getProducstInCartSelector)
   const { token } = useSelector(getUserSelector)
+  const favouriteProductsFromState = useSelector(getAllFavouriteProductsSelector)
   const dispatch = useDispatch()
   const navigate = useNavigate()
 
@@ -53,9 +60,17 @@ export function ProductDetail() {
     dispatch(deleteFromCart(productId))
   }
 
-  const isInCart = (prodId) => {
-    productsInCart.find((product) => product.id === prodId)
+  const addInFavouritesHandler = (e) => {
+    e.preventDefault()
+    dispatch(addInFavourites(productId))
   }
+
+  const deleteFromFavouritesHandler = (e) => {
+    e.preventDefault()
+    dispatch(deleteFromFavourites(productId))
+  }
+
+  const isInCart = (prodId) => productsInCart.find((product) => product.id === prodId)
 
   return (
 
@@ -88,12 +103,27 @@ export function ProductDetail() {
             <br />
             <button
               type="button"
-              className={productDetailStyle.btn}
+              className={isInCart(productId)
+                ? productDetailStyle.btnDelete
+                : productDetailStyle.btnAdd}
               onClick={isInCart(productId) ? deleteFromCartHandler : addToCartHandler}
             >
               В корзину
             </button>
-            <FontAwesomeIcon icon={faHeart} className={productDetailStyle.icon} />
+            {favouriteProductsFromState.includes(productId) && (
+            <FontAwesomeIcon
+              icon={faHeartCircleCheck}
+              className={productDetailStyle.icon}
+              onClick={deleteFromFavouritesHandler}
+            />
+            )}
+            {!favouriteProductsFromState.includes(productId) && (
+            <FontAwesomeIcon
+              icon={faHeart}
+              className={productDetailStyle.icon}
+              onClick={addInFavouritesHandler}
+            />
+            )}
           </div>
 
         </div>

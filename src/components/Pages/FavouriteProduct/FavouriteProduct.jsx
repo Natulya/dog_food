@@ -1,4 +1,4 @@
-import { faHeart } from '@fortawesome/free-solid-svg-icons'
+import { faHeartCircleCheck } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { useDispatch, useSelector } from 'react-redux'
 import { Link } from 'react-router-dom'
@@ -6,6 +6,7 @@ import {
   addToCart,
   deleteFromCart, getProducstInCartSelector,
 } from '../../../redux/slices/cartSlice'
+import { deleteFromFavourites } from '../../../redux/slices/favouriteSlice'
 import productCardStyle from '../ProductCard/productCard.module.css'
 
 export function FavouriteProduct({
@@ -20,19 +21,27 @@ export function FavouriteProduct({
     dispatch(addToCart(id))
   }
 
-  const deleteFromCartHandler = () => {
+  const deleteFromCartHandler = (e) => {
+    e.preventDefault()
     dispatch(deleteFromCart(id))
   }
 
-  const isInCart = (productId) => {
-    productsInCart.find((product) => product.id === productId)
+  const deleteFromFavouritesHandler = (e) => {
+    e.preventDefault()
+    dispatch(deleteFromFavourites(id))
   }
+
+  const isInCart = (productId) => productsInCart.find((product) => product.id === productId)
 
   return (
     <Link to={`/products/${id}`}>
       <div className={productCardStyle.cardWrapper}>
         <div className={productCardStyle.card}>
-          <FontAwesomeIcon icon={faHeart} className={productCardStyle.icon} />
+          <FontAwesomeIcon
+            icon={faHeartCircleCheck}
+            className={productCardStyle.icon}
+            onClick={deleteFromFavouritesHandler}
+          />
           <br />
           <img src={pictures} alt={name} className={productCardStyle.pic} />
           <h5>
@@ -51,7 +60,7 @@ export function FavouriteProduct({
           </div>
           <button
             type="button"
-            className={productCardStyle.btn}
+            className={isInCart(id) ? productCardStyle.btnDelete : productCardStyle.btnAdd}
             onClick={isInCart(id) ? deleteFromCartHandler : addToCartHandler}
           >
             В корзину

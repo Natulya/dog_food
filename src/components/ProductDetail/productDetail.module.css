@@ -51,19 +51,38 @@
     width: 310px;
 } 
 
-.btn {
-  font-family: 'Raleway', sans—serif;
-  color: #fff;
-  height: 40px;
-  padding: 0 16px;
-  margin: 8px 0px;
-  background-color: #23a030;
-  border: none;
-  border-radius: 12px;
-  cursor: pointer;
-  box-shadow: 0 6px 26px rgb(52 213 68 / 22%);
-  
-}
-.btn:hover {
-    background-color: #379440;
+.btnAdd {
+    font-family: 'Raleway', sans—serif;
+    color: #fff;
+    height: 40px;
+    padding: 0 16px;
+    margin: 8px 0px;
+    background-color: #23a030;
+    border: none;
+    border-radius: 12px;
+    cursor: pointer;
+    box-shadow: 0 6px 26px rgb(52 213 68 / 22%);
   }
+  
+  .btnDelete {
+      font-family: 'Raleway', sans—serif;
+      color: #fff;
+      height: 40px;
+      padding: 0 16px;
+      margin: 8px 0px;
+      background-color: #db6060;
+      border: none;
+      border-radius: 12px;
+      cursor: pointer;
+      box-shadow: 0 6px 26px rgba(250, 87, 87 / 22%);
+    }
+  
+  .btnAdd:hover {
+      background-color: #379440;
+      box-shadow: 0 6px 26px rgba(52, 213, 68, 0.46);
+    }
+  
+  .btnDelete:hover {
+  background-color: #e10000;
+  box-shadow: 0 6px 26px rgba(250, 87, 87, 0.46);
+  }  

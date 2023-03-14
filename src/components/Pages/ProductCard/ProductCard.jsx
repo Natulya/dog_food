@@ -1,14 +1,20 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faHeart } from '@fortawesome/free-regular-svg-icons'
+
 import { useDispatch, useSelector } from 'react-redux'
 import { Link } from 'react-router-dom'
+import { faHeartCircleCheck } from '@fortawesome/free-solid-svg-icons'
 import productCardStyle from './productCard.module.css'
 import {
   addToCart,
   deleteFromCart,
   getProducstInCartSelector,
 } from '../../../redux/slices/cartSlice'
-import { addInFavourites } from '../../../redux/slices/favouriteSlice'
+import {
+  addInFavourites,
+  deleteFromFavourites,
+  getAllFavouriteProductsSelector,
+} from '../../../redux/slices/favouriteSlice'
 
 export function ProductCard({
   pictures, name, price, wight, id,
@@ -18,7 +24,7 @@ export function ProductCard({
 //   } = products
 
   const productsInCart = useSelector(getProducstInCartSelector)
-  // const favouriteProductsFromState = useSelector(getAllFavouriteProductsSelector)
+  const favouriteProductsFromState = useSelector(getAllFavouriteProductsSelector)
 
   const dispatch = useDispatch()
 
@@ -27,7 +33,8 @@ export function ProductCard({
     dispatch(addToCart(id))
   }
 
-  const deleteFromCartHandler = () => {
+  const deleteFromCartHandler = (e) => {
+    e.preventDefault()
     dispatch(deleteFromCart(id))
   }
 
@@ -36,19 +43,32 @@ export function ProductCard({
     dispatch(addInFavourites(id))
   }
 
-  const isInCart = (productId) => {
-    productsInCart.find((product) => product.id === productId)
+  const deleteFromFavouritesHandler = (e) => {
+    e.preventDefault()
+    dispatch(deleteFromFavourites(id))
   }
+
+  const isInCart = (productId) => productsInCart.find((product) => product.id === productId)
 
   return (
     <Link to={`./${id}`}>
       <div className={productCardStyle.cardWrapper}>
         <div className={productCardStyle.card}>
+          {favouriteProductsFromState.includes(id) && (
+          <FontAwesomeIcon
+            icon={faHeartCircleCheck}
+            className={productCardStyle.icon}
+            onClick={deleteFromFavouritesHandler}
+          />
+          )}
+          {!favouriteProductsFromState.includes(id) && (
           <FontAwesomeIcon
             icon={faHeart}
             className={productCardStyle.icon}
             onClick={addInFavouritesHandler}
           />
+          )}
+
           <br />
           <img src={pictures} alt={name} className={productCardStyle.pic} />
           <h5>
@@ -67,10 +87,11 @@ export function ProductCard({
           </div>
           <button
             type="button"
-            className={productCardStyle.btn}
+            className={isInCart(id) ? productCardStyle.btnDelete : productCardStyle.btnAdd}
             onClick={isInCart(id) ? deleteFromCartHandler : addToCartHandler}
           >
             В корзину
+
           </button>
         </div>
 

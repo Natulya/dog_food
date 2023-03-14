@@ -10,7 +10,7 @@ import { getUserSelector, setUserInfo, setUserToken } from '../../redux/slices/u
 // import { dogFoodApi } from '../../Api/DogFoodApi'
 import { DOG_FOOD_TOKEN_KEY } from '../../redux/constants'
 import { clearCart, getProducstInCartSelector } from '../../redux/slices/cartSlice'
-import { clearFavourites } from '../../redux/slices/favouriteSlice'
+import { clearFavourites, getAllFavouriteProductsSelector } from '../../redux/slices/favouriteSlice'
 
 export function Header() {
   const {
@@ -19,6 +19,7 @@ export function Header() {
   // const user = useSelector(getUserSelector)
   // console.log(user)
   const productsInCart = useSelector(getProducstInCartSelector)
+  const favouriteProductsFromState = useSelector(getAllFavouriteProductsSelector)
   const dispatch = useDispatch()
 
   const userName = name
@@ -76,6 +77,7 @@ export function Header() {
 
       <Link to="/favourite">
         <div className={headerStyle.cartInfo}>
+          <p>{favouriteProductsFromState.length}</p>
           <FontAwesomeIcon icon={faHeart} className={headerStyle.iconCart} />
           <p>Избранное</p>
         </div>

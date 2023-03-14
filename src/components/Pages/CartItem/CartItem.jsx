@@ -1,18 +1,25 @@
-import { useDispatch } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faTrashAlt, faHeart } from '@fortawesome/free-regular-svg-icons'
+import { faHeartCircleCheck } from '@fortawesome/free-solid-svg-icons'
 import {
   deleteFromCart, productDecrement, productIncrement, selectInCart,
 } from '../../../redux/slices/cartSlice'
 import cartItemStyle from './cartItem.module.css'
 import minus from '../../../img/minus.svg'
 import plus from '../../../img/plus.svg'
+import {
+  addInFavourites,
+  deleteFromFavourites,
+  getAllFavouriteProductsSelector,
+} from '../../../redux/slices/favouriteSlice'
 
 export function CartItem({
   name, pictures, price, id, stock, discount, count, isChecked,
 }) {
   const dispatch = useDispatch()
   // const  = useSelector(getProducstInCartSelector)
+  const favouriteProductsFromState = useSelector(getAllFavouriteProductsSelector)
 
   const deleteProductHandler = () => {
     dispatch(deleteFromCart(id))
@@ -20,6 +27,16 @@ export function CartItem({
 
   const selectProductHandler = () => {
     dispatch(selectInCart(id))
+  }
+
+  const addInFavouritesHandler = (e) => {
+    e.preventDefault()
+    dispatch(addInFavourites(id))
+  }
+
+  const deleteFromFavouritesHandler = (e) => {
+    e.preventDefault()
+    dispatch(deleteFromFavourites(id))
   }
 
   const incrementCountHandler = () => {
@@ -89,7 +106,20 @@ export function CartItem({
             onClick={deleteProductHandler}
           />
 
-          <FontAwesomeIcon icon={faHeart} className={cartItemStyle.iconHeart} />
+          {favouriteProductsFromState.includes(id) && (
+          <FontAwesomeIcon
+            icon={faHeartCircleCheck}
+            className={cartItemStyle.iconHeart}
+            onClick={deleteFromFavouritesHandler}
+          />
+          )}
+          {!favouriteProductsFromState.includes(id) && (
+          <FontAwesomeIcon
+            icon={faHeart}
+            className={cartItemStyle.iconHeart}
+            onClick={addInFavouritesHandler}
+          />
+          )}
         </div>
 
       </div>
